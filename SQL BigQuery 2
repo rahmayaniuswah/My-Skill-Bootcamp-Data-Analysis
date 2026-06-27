@@ -1,0 +1,172 @@
+select
+  distinct
+  city 
+from
+  `tokouswah.orders`
+
+-- ada category product apa aja?
+select
+  distinct
+  category 
+from
+  `tokouswah.orders`
+
+-- ada subcategory product apa aja?
+select
+  distinct
+  subcategory 
+from 
+  `tokouswah.orders`
+
+select
+  distinct
+  category,
+  subcategory
+from 
+  `tokouswah.orders`
+
+-- distinct ditulis di antara SELECT dan NAMA NAMA KOLOM (select distinct[list of kolom])
+-- distinct menampilkan kombinasi nilai yang berbeda dari kolom kolom 
+
+---
+
+-- operasi perbandingan atau comparison
+-- <, <=, >, >=, =, !=, <>
+
+-- tampilkan hanya baris yang rugi? (profit < 0) <=? profit = 0 artinya impas 
+select * from `tokouswah.orders` where profit < 0
+
+-- memfilter baris transaksi dengan revenue (sales) di antara 100 dan 500 dollar
+-- sales >= 100 dan sales <= 500
+select * from `tokouswah.orders` where sales >= 100 AND sales <= 500
+
+select * from `tokouswah.orders` where sales between 100 AND 500 -- query ini ekivalen dengan yang di atas
+-- batas bawah (100) dan batas atas (500) masuk ke range
+
+-- sales between 100 and 500 SAMA ARTINYA DENGAN sales >= 100 AND sales <= 500
+
+-- tipe data apa aja yang bisa menggunakan operator perbandingan?
+-- 13 januari 2026 vs 20 januari 2020 (tanggal mengenal urutan)
+
+-- menampilkan transaksi mulai dari tanggal 1 september 2019 -> 'YYYY-MM-DD' '2019-09-01' (diapit oleh tanda kutip)
+select * from `tokouswah.orders` where order_date > '2019-09-01'
+
+-- tampilkan semua transaksi yang terjadi selama kuartal 1 2019 (januari sd maret)
+-- kuart (seperempat tahun)
+select * from `tokouswah.orders` where order_date between '2019-01-01' and '2019-03-31'
+
+select * from `tokopakedi.orders` where city between 'Cileunyi' and 'Padalarang'
+-- kota yang namanya terletak di antara Cileunyi dan Padalarang (ingat absen)
+-- kota Samarinda masuk? tidak karena secara abjad S setelah P
+-- kota Braga masuk? tidak karena sebelum C
+-- kota Ciamis masuk? tidak karena Cia huruf a sebelum huruf l di Cil
+-- Abdul vs Abas, di absen duluan siapa?
+
+select * from `tokopakedi.orders` where city between 'Padalarang' and 'Cileunyi' -- gak muncul datanya karena kebalik, gak sesuai abjad
+-- between <batas bawah> and <batas atas>
+
+select * from `tokouswah.orders` where city != 'Leominster'
+
+select * from `tokouswah.orders` where NOT city = 'Leominster'
+
+-- urutan = ORDER
+-- ORDINAL (data yang merupakan urutan)
+-- arah urutan : 2 arah (NAIK, TURUN)
+-- NAIK (ASCENDING)
+-- TURUN (DESCENDING)
+
+-- menampilkan data transaksi mulai dari yang paling awal
+select * from `tokouswah.orders` order by order_date asc
+
+-- menampilkan data transaksi mulai dari yang paling baru
+select * from `tokouswah.orders` order by order_date desc
+
+-- jika arah tidak didefinisikan/disebutkan, default nya asc
+select * from `tokouswah.orders` order by order_date
+
+select 
+  * 
+from 
+  `tokouswah.orders` 
+where 
+  order_date between '2019-01-01' and '2019-03-31' 
+order by order_date
+
+select
+  distinct
+  category,
+  subcategory
+from 
+  `tokouswah.orders`
+order by
+  category,
+  subcategory
+
+select
+  distinct
+  category,
+  subcategory
+from 
+  `tokouswah.orders`
+order by
+  subcategory,
+  category
+
+-- urutan mengenal hirarki kolom
+
+-- custom urutan per kolom
+select
+  distinct
+  category,
+  subcategory
+from 
+  `tokouswah.orders`
+order by
+  category desc,
+  subcategory asc
+
+-- transaksi mulai dari sales paling tinggi
+select * from `tokouswah.orders` order by sales desc
+
+select
+   order_date,
+   sales
+from
+  `tokopakedi.orders`
+
+-- RUN (CTRL + ENTER)
+-- MAC (Command + ENTER)
+
+-- LIMIT (batas) membatasi banyaknya baris yang ditampilkan
+-- limit mengambil n baris teratas
+
+select * from `tokouswah.orders` limit 10 -- mengambil 10 baris teratas
+
+-- ambil 10 baris transaksi paling awal
+select * from `tokouswah.orders` order by order_date limit 10
+
+-- ambil 10 baris transaksi paling akhir
+select * from `tokouswah.orders` order by order_date desc limit 10
+
+-- kenapa tidak limit dulu baru order? nanti rancu
+
+-- select 
+-- from 
+-- where 
+-- order by 
+-- limit
+
+-- prefix awalan
+-- alias
+
+select
+   order_date as tanggal_order,
+   sales as penjualan
+from
+  `tokopakedi.orders`
+
+select
+   order_date tanggal_order,
+   sales penjualan
+from
+  `tokopakedi.orders`
