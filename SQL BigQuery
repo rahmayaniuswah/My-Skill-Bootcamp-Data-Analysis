@@ -1,0 +1,80 @@
+select * from `tokouswah.orders` -- backtick (mengapit nama kolom atau tabel)
+select * from 'tokouswah.orders' -- quote (dipakai untuk teks, varchar)
+
+select * from `tokouswah.orders` -- * memilih semua kolom
+
+select
+  product_id,
+  order_id
+from
+  `tokouswah.orders`
+
+select * from `tokouswah.orders` where category = 'Office Supplies' -- operator = sangat strict dengan nilai (besar kecil tulisan, misalkan)
+
+-- LOGIKA
+
+-- AND (DAN)
+-- bantuan tunai : (K1: penghasilan < 300rb/bulan) DAN (K2: punya tanggungan)
+-- CASE 1 : dek gatot (anak sd)       -> uang jajan 2rb per hari DAN orang tua masih ada      -> K1 true DAN K2 false  -> FALSE
+-- CASE 2 : king nasir (buruh pabrik) -> gaji 6jt per bulan      DAN masih jomblo             -> K1 false DAN K2 false -> FALSE
+-- CASE 3 : Pak amba (perangkat desa) -> gaji 5jt per bulan      DAN punya keluarga           -> K1 false DAN K2 true  -> FALSE
+-- CASE 4 : kakek sugi (penjual daun) -> 5rb per hari            DAN nenek sugi dan cucu      -> K1 true DAN K2 true   -> TRUE
+
+-- apa kesimpulannya? pernyataan brnilai benar jika kondisi-kondisi yang dihubungkan dengan DAN bernilai benar semua
+-- double door 
+
+-- OR (ATAU)
+-- cariin minuman Frutang ATAU Finto
+-- tempat 1 : frutang ada, finto ada -> beli
+-- tempat 2 : frutang gak ada, finto ada -> beli
+-- tempat 3 : frutang ada, finto gak ada -> beli
+-- tempat 4 : frutang gak ada, finto gak ada -> gak jadi beli
+
+-- OR, bernilai benar jika terdapat salah satu kondisi yang bernilai benar
+-- OR, percabangan jalan
+
+-- NOT (kebalikan)
+-- NOT TRUE = FALSE
+-- NOT FALSE = TRUE
+
+select * from `tokouswah.orders`
+where
+  category = 'Office Supplies' and ship_mode = 'First Class'
+-- mencari order dengan category office supplies yang dikirim menggunakan first class
+
+-- di dalam dunia nyata DAN dengan ATAU sering tertukar
+
+-- "siswa yang merasa kelas 11 dan kelas 12, kumpul di lapangan" -> akan ada yang kumpul di lapangan apa gak? 
+-- DAN, artinya siswa tersebut harus kelas 11 dan kelas 12 secara bersamaan
+
+-- tolong ambilkan data transaksi yang berasal dari kota 'Lowell' dan 'Providence'
+select * from `tokouswah.orders` where city = 'Lowell' and city = 'Providence' 
+
+select * from `tokouswah.orders` where city = 'Lowell' or city = 'Providence' 
+
+-- transaksi selain di kota Lowell
+select * from `tokouswah.orders` where not city = 'Lowell'
+
+-- region, category
+-- east AND office supplies
+-- OR
+-- west AND technology
+-- tampilkan dalam satu tabel
+
+select * from `tokouswah.orders`
+where
+   region = 'East' AND category = 'Office Supplies' OR region = 'West' AND category = 'Technology'
+
+-- vs
+
+select * from `tokouswah.orders`
+where
+  (region = 'East' AND category = 'Office Supplies')
+  OR 
+  (region = 'West' AND category = 'Technology')
+
+-- IN
+select * from `tokouswah.orders` where city = 'Lowell' or city = 'Providence'
+
+select * from `tokouswah.orders` where city IN ('Lowell','Providence')
+-- PILIH semua kolom DARI tabel orders YANG MANA kota nya berada DI DALAM (list kota)
