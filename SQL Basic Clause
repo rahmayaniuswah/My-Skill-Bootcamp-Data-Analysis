@@ -1,0 +1,100 @@
+-- (double dash) adalah komentar/ catatan
+-- Pastikan kita memilih Demo Server PostgreSQL
+-- Pilih PostgreSQL -> Click to Connect
+
+
+-- hati-hati di platform ini ada limit harian
+-- jangan running dulu sembarangan
+
+-- membuat tabel menggunakan SQL
+
+--'BUAT TABEL konsumen' 
+CREATE TABLE konsumen (
+  -- mention nama-nama kolom dan tipe data
+  -- syntax (nama_kolom tipe_data)
+  cust_id INT,
+  nama VARCHAR(64),
+  alamat VARCHAR(128),
+  no_hp VARCHAR(13),
+  tanggal_join DATE
+  )
+  
+  -- block query yang akan di running, lalu klik run (1x)
+  -- lalu cek di bagian 'Table'
+  
+  -- alternatif
+  CREATE TABLE konsumen (cust_id INT,nama VARCHAR(64),alamat VARCHAR(128),no_hp VARCHAR(13),tanggal_join DATE) 
+  
+  -- memasukkan nilai ke dalam tabel 
+  -- query: MASUKKAN KE DALAM konsumen NILAI_NILAI <berikut/data yang diinput> 
+  
+  INSERT INTO -- commandnya bisa huruf kecil 
+  	konsumen
+  VALUES
+  	(1,'Abdi','Bojongsoang','08112345','2024-04-03'),
+    (2,'Budi','Nagreg','08112346','2023-04-03'),
+    (3,'Cinta','Dago','08112347','2023-04-01')
+    
+ -- data numerik tidak perlu menggunakan kutip 
+ -- kutip digunakan untuk data teks dan tanggal 
+ -- format tanggal standar ISO 'YYYY-MM-DD' 
+ -- Abdi, tanpa kutip akan disangka sebagai nama kolom/tabel/variable 
+ -- kutip -> literally (maknanya secara harfiah bener-bener itu, tidak mengacu ke yang lain)
+ -- perintah INSERT digunakan untuk memasukkan nilai dan prosesnya tersembunyi 
+ 
+ -- menampilkan isi tabel
+ -- untuk menampilkan tabel, gunakan SELECT
+ -- * digunakan untuk memilih semua kolom 
+ SELECT * FROM konsumen
+ 
+ -- apa fungsi ; (digunakan untuk memisahkan kalimat/query) mana query 1 mana query 2
+ -- saya adalah uswah seorang data analyst. sehari-hari saya menggunakan sql.
+ -- saya adalah uswah seorang data analyst sehari-hari saya menggunakan sql
+ 
+ -- query 1; query 2; (query 1 dieksekusi, setelah selesai lanjut query 2)
+ 
+ -- query: HAPUS DARI konsumen YANG MANA <kondisi> 
+ 
+ DELETE FROM konsumen WHERE nama = 'Abdi'
+ -- menghapus data (proses tersembunyi) 
+ 
+ SELECT * FROM konsumen
+ 
+ -- bahaya tidak? misal case nya seperti berikut:
+ -- nama_depan nama_belakang
+ -- rizki kurniawan 
+ -- rizki sayhputra
+ -- rizki eka 
+ -- rizki putra
+ 
+ -- delete from konsumen where nama_depan = 'rizki' and nama_belakang = 'kurniawan'
+ -- maka semua rizki hilang, lalu apa solusinya? maka tambahkan kondisi misal nama_belakang 
+ -- tapi jika ada yang sama semua bagaimana?
+ -- maka menggunakan ID (identifier) = pengenal
+ -- NIK, username 
+ -- ID, ciri khas: 
+ 	-- unique untuk setiap data 
+    -- tak kosong (setiap entitas harus punya id dan id nya berbeda untuk setiap entitas)
+ -- PRIMARY KEY (digunakan untuk menandai kolom ID)
+ 
+ -- hapus :
+ 	-- delete : menghapus isi tabel (baris)
+ 	-- drop : menghapus di level tabel/kolom 
+  
+ -- query hapus tabel konsumen 
+ DROP TABLE konsumen
+ 
+ CREATE TABLE konsumen (
+   -- primary key : datanya harus unique dan tak kosong 
+  cust_id INT PRIMARY KEY,
+  nama VARCHAR(64),
+  alamat VARCHAR(128),
+  no_hp VARCHAR(13),
+  tanggal_join DATE
+  )
+  
+  -- keluarga ALTER (memodifikasi struktur tabel dan kolom)
+  
+  ALTER TABLE konsumen DROP COLUMN alamat
+  
+  SELECT * FROM konsumen
